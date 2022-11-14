@@ -28,21 +28,20 @@ const getRequest = () => new Promise((resolve, reject) => {
     .then((data) => resolve(data))
     .catch(reject);
 });
-const punchLineOnDom = () => {
-  getRequest().then((response) => {
-    console.warn('is this making it to the dom?');
-    renderToDom('#setup', response.delivery);
-  });
-};
+
 const setupOnDom = () => {
   getRequest().then((response) => {
     console.warn(response);
-    renderToDom('#setup', response.setup);
+    renderToDom('#punchLineDiv', response.setup);
+    const punchpunch = response.delivery;
     document.querySelector('#app').innerHTML = `
    
     <button class="btn btn-danger" id="punchLine">Get Punchline</button>
     
   `;
+    const punchLineOnDom = () => {
+      renderToDom('#setup', punchpunch);
+    };
     document.querySelector('#punchLine').addEventListener('click', punchLineOnDom);
   });
 };
