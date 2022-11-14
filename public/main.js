@@ -3,6 +3,10 @@
 import 'bootstrap'; // import bootstrap elements and js
 import '../styles/main.scss';
 
+const renderToDom = (divId, htmlToRender) => {
+  const selectedDiv = document.querySelector(divId);
+  selectedDiv.innerHTML = htmlToRender;
+};
 const init = () => {
   document.querySelector('#app').innerHTML = `
    
@@ -14,7 +18,7 @@ const init = () => {
 };
 init();
 const getRequest = () => new Promise((resolve, reject) => {
-  fetch('https://v2.jokeapi.dev/joke/any', {
+  fetch('https://v2.jokeapi.dev/joke/Programming?safe-mode&type=twopart', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -27,9 +31,11 @@ const getRequest = () => new Promise((resolve, reject) => {
 const requestOnDom = () => {
   getRequest().then((response) => {
     console.warn(response);
+    renderToDom('#setup', response.setup);
   });
 };
-requestOnDom();
-document.querySelector('#click-me').addEventListener('click', getRequest);
+
+document.querySelector('#click-me').addEventListener('click', requestOnDom);
+
 // USE WITH FIREBASE AUTH
 // ViewDirectorBasedOnUserAuthStatus();
