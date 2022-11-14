@@ -41,6 +41,15 @@ const setupOnDom = () => {
   `;
     const punchLineOnDom = () => {
       renderToDom('#setup', punchpunch);
+      document.querySelector('#app').innerHTML = `
+   
+    <button class="btn btn-danger" id="anotherJoke">Get another joke</button>
+    
+  `;
+      document.querySelector('#anotherJoke').addEventListener('click', () => {
+        renderToDom('#setup', '');
+        setupOnDom();
+      });
     };
     document.querySelector('#punchLine').addEventListener('click', punchLineOnDom);
   });
